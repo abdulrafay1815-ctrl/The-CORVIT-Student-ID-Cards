@@ -1,52 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 
-// MenuItem Component
-function MenuItem({ item }) {
+// Reusable StudentCard Component
+function StudentCard({ name, course, roll }) {
   return (
-    <div
-      style={{
-        backgroundColor: item.isSpicy ? "#ffcccc" : "#ccffcc",
-        padding: "10px",
-        margin: "10px",
-        borderRadius: "8px",
-      }}
-    >
-      <h2>
-        {item.name} {item.isSpicy ? "🔥" : ""}
-      </h2>
-      <p>Price: Rs {item.price}</p>
+    <div className="card student-card shadow-sm mb-4">
+      <div className="card-body text-center">
+        <h5 className="card-title fw-bold">{name}</h5>
+        <p className="card-text">📘 {course}</p>
+        <span className="badge bg-primary">Roll No: {roll}</span>
+      </div>
     </div>
   );
 }
 
 function App() {
-  const menu = [
-    { id: 1, name: "Chicken Biryani", price: 500, isSpicy: true },
-    { id: 2, name: "Beef Biryani", price: 600, isSpicy: false },
-    { id: 3, name: "Mutton Biryani", price: 700, isSpicy: true },
-    { id: 4, name: "Egg Biryani", price: 400, isSpicy: false },
+  const students = [
+    { id: 1, name: "Ali", course: "React", roll: "101" },
+    { id: 2, name: "Sara", course: "jQuery", roll: "102" },
+    { id: 3, name: "Ahmed", course: "JavaScript", roll: "103" },
   ];
 
-  const [showNonSpicy, setShowNonSpicy] = useState(false);
-
-  // Filter logic
-  const filteredMenu = showNonSpicy
-    ? menu.filter((item) => item.isSpicy === false)
-    : menu;
-
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Biryani Menu 🍽️</h1>
-
-      <button onClick={() => setShowNonSpicy(!showNonSpicy)}>
-        Show Non-Spicy Only
-      </button>
-
-      {/* Map loop */}
-      {filteredMenu.map((item) => (
-        <MenuItem key={item.id} item={item} />
-      ))}
+    <div className="container py-5">
+      <h1 className="text-center mb-5 fw-bold">🎓 Student ID Cards</h1>
+      <div className="row justify-content-center">
+        {students.map((student) => (
+          <div key={student.id} className="col-md-3">
+            <StudentCard
+              name={student.name}
+              course={student.course}
+              roll={student.roll}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
